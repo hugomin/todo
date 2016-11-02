@@ -16,25 +16,63 @@ $(document).ready(function(){
 	var todos=[];
 //显示main 2
 
-	if(localStorage.todos){
-		todos=JSON.parse(localStorage.todos);
-		for(var i=0;i<todos.length;i++){
-		var title1=todos[i].title;
-		var content1=todos[i].content;
-	    var v=title1.charAt(0);
-	   var c=todos[i].stats?"color":""
-		$("<div class='one'><div class='logo'>"+v+"</div><div class='neirong'><div class='title1'>"+title1+"</div><div class='content1'>"+content1+"</div><a class='"+c+" baocun' >&#xe612;</a><a class='guanbi'>&#xe605;</a></div></div>").
-		appendTo(main.eq(2));
-		}
-	}
-	
+//	if(localStorage.todos){
+//		todos=JSON.parse(localStorage.todos);
+//		for(var i=0;i<todos.length;i++){
+//		var title1=todos[i].title;
+//		var content1=todos[i].content;
+//	    var v=title1.charAt(0);
+//	   var c=todos[i].stats?"color":""
+//		$("<div class='one'><div class='logo'>"+v+"</div><div class='neirong'><div class='title1'>"+title1+"</div><div class='content1'>"+content1+"</div><a class='"+c+" baocun' >&#xe612;</a><a class='guanbi'>&#xe605;</a></div></div>").
+//		appendTo(main.eq(2));
+//		}
+//	}
+//	yemiancaouzo   记录做过与关闭
+		
+		main.eq(2).on("touchstart",".baocun",function(){
+			var baocuns=$(".baocun")
+			var index=baocuns.index($(this));
+			
+			console.log(todos)
+			if(todos[index].state==1){
+			$(this).removeClass("color")
+			todos[index].state=0;
+			}
+			else if(todos[index].state==0){
+			$(this).addClass("color")
+			todos[index].state=1;
+			}
+			localStorage.todos=JSON.stringify(todos)
+		})
+		main.eq(2).on("touchstart",".guanbi",function(){
+			main.css("display","none");
+			
+		})
+		main.eq(2).on("touchstart",".img2",function(){
+			main.css("display","none");
+			main.eq(1).css("display","block")
+		})
 	
 
 //	主页面
-	console.log(add)
 	add.eq(0).on("touchstart",function(){
+		if(localStorage.todos){
 		main.css("display","none");
 		main.eq(2).css("display","block")	
+		render()}
+		else{
+		main.css("display","none");
+		main.eq(1).css("display","block")
+		
+		var date=new Date();
+           //	var year1=date.
+		year.html(date.getFullYear());
+		month.html(date.getMonth()+1);
+		day.html(date.getDate());
+		hour.html(date.getHours());
+		minute.html(date.getMinutes());
+		second.html(date.getSeconds());
+		}
 	})
 	add.eq(1).on("touchstart",function(){
 		main.css("display","none");
@@ -42,7 +80,7 @@ $(document).ready(function(){
 		var date=new Date();
            //	var year1=date.
 		year.html(date.getFullYear());
-		month.html(date.getMonth());
+		month.html(date.getMonth()+1);
 		day.html(date.getDate());
 		hour.html(date.getHours());
 		minute.html(date.getMinutes());
@@ -116,7 +154,7 @@ $(document).ready(function(){
 		var content1=todos[i].content;
 	    var v=title1.charAt(0);
 	   var c=todos[i].stats?"color":""
-		$("<div class='one'><div class='logo'>"+v+"</div><div class='neirong'><div class='title1'>"+title1+"</div><div class='content1'>"+content1+"</div><a class='"+c+" baocun' >&#xe612;</a><a class='guanbi'>&#xe605;</a></div></div>").
+		$("<img src='image/02.jpg'  class='img2'/><div class='one'><div class='logo'>"+v+"</div><div class='neirong'><div class='title1'>"+title1+"</div><div class='content1'>"+content1+"</div><a class='"+c+" baocun' >&#xe612;</a><a class='guanbi'>&#xe605;</a></div></div>").
 		appendTo(main.eq(2));
 		}
 	}
