@@ -6,13 +6,6 @@ $(document).ready(function(){
 	var list=$("#list");
 	var nav=$("#nav");
 	var side=$(".side");
-	
-	var year=$("#year")
-	var month=$("#month")
-	var day=$("#day")
-	var hour=$("#hour")
-	var minute=$("#minute")
-	var second=$("#second")
 	var todos=[];
 //显示main 2
 
@@ -27,8 +20,19 @@ $(document).ready(function(){
 //		appendTo(main.eq(2));
 //		}
 //	}
-//	yemiancaouzo   记录做过与关闭
+//	刚进去页面
+	
+	if(localStorage.todos&&todos.length!=0){
 		
+		main.css("display","none")
+		main.eq(2).css("display","block")
+		render();
+	}
+	else{
+		main.css("display","none")
+		main.eq(0).css("display","block")
+	}
+//	yemiancaouzo   展示页面2
 		main.eq(2).on("touchstart",".baocun",function(){
 			var baocuns=$(".baocun")
 			var index=baocuns.index($(this));
@@ -45,46 +49,34 @@ $(document).ready(function(){
 			localStorage.todos=JSON.stringify(todos)
 		})
 		main.eq(2).on("touchstart",".guanbi",function(){
-			main.css("display","none");
+			var delete1=$(".guanbi")
+			var index=delete1.index($(this))
+			var li=$(".one")
+			todos.splice(index,1);
+			localStorage.todos=JSON.stringify(todos);
+			if(todos.length==0){
+				main.css("display","none").eq(0).css("display","block")
+			}
+			li.eq(index).remove();
 			
-		})
-		main.eq(2).on("touchstart",".img2",function(){
-			main.css("display","none");
-			main.eq(1).css("display","block")
-		})
-	
+		})	
 
-//	主页面
-	add.eq(0).on("touchstart",function(){
-		if(localStorage.todos){
+//	内容页面
+	main.eq(0).on("touchstart",".img2",function(){
+		if(localStorage.todos&&todos.length!=0){
 		main.css("display","none");
 		main.eq(2).css("display","block")	
 		render()}
 		else{
 		main.css("display","none");
-		main.eq(1).css("display","block")
-		
-		var date=new Date();
-           //	var year1=date.
-		year.html(date.getFullYear());
-		month.html(date.getMonth()+1);
-		day.html(date.getDate());
-		hour.html(date.getHours());
-		minute.html(date.getMinutes());
-		second.html(date.getSeconds());
+		main.eq(1).css("display","block");
+		date1();
 		}
 	})
-	add.eq(1).on("touchstart",function(){
+	main.eq(2).on("touchstart",".img2",function(){	
 		main.css("display","none");
 		main.eq(1).css("display","block")
-		var date=new Date();
-           //	var year1=date.
-		year.html(date.getFullYear());
-		month.html(date.getMonth()+1);
-		day.html(date.getDate());
-		hour.html(date.getHours());
-		minute.html(date.getMinutes());
-		second.html(date.getSeconds());
+		date1();
 		
 	})
 	
@@ -92,7 +84,7 @@ $(document).ready(function(){
 	
 	
 	
-//  添加页面
+//  添加内容页面
    collect.on("touchstart",function(){
    	var title=$(".title");
 	var content=$(".content");
@@ -117,7 +109,7 @@ $(document).ready(function(){
 	
 	
 	close.on("touchstart",function(){
-		if(localStorage.todos){
+		if(localStorage.todos&&todos.length!=0){
 			main.css("display","none")
 			main.eq(2).css("display","block")
 			render();
@@ -153,10 +145,27 @@ $(document).ready(function(){
 		var title1=todos[i].title;
 		var content1=todos[i].content;
 	    var v=title1.charAt(0);
-	   var c=todos[i].stats?"color":""
+	   var c=todos[i].state?"color":""
 		$("<img src='image/02.jpg'  class='img2'/><div class='one'><div class='logo'>"+v+"</div><div class='neirong'><div class='title1'>"+title1+"</div><div class='content1'>"+content1+"</div><a class='"+c+" baocun' >&#xe612;</a><a class='guanbi'>&#xe605;</a></div></div>").
 		appendTo(main.eq(2));
 		}
 	}
+	}
+	
+	function date1(){
+		var date=new Date();
+		var year=$("#year")
+		var month=$("#month")
+		var day=$("#day")
+		var hour=$("#hour")
+		var minute=$("#minute")
+		var second=$("#second")
+           //	var year1=date.
+		year.html(date.getFullYear());
+		month.html(date.getMonth()+1);
+		day.html(date.getDate());
+		hour.html(date.getHours());
+		minute.html(date.getMinutes());
+		second.html(date.getSeconds());
 	}
 })
