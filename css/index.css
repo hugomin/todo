@@ -10,6 +10,7 @@ body {
   font-family: "微软雅黑";
   background: #fff;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 * {
@@ -21,6 +22,8 @@ body {
   height: 1.7rem;
   background: #617fde;
   overflow: hidden;
+  padding: 0 0.2rem;
+  box-sizing: border-box;
 }
 
 .header .nav {
@@ -29,8 +32,7 @@ body {
   margin-top: 0.6rem;
   font-size: 24px;
   color: #fff;
-  padding: 0 0.2rem;
-  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .header .nav > a {
@@ -71,7 +73,7 @@ body {
   right: 0;
   margin: auto;
   width: 2.1rem;
-  margin-top: 4rem;
+  margin-top: 3.5rem;
 }
 
 .content .main .img2 {
@@ -93,7 +95,7 @@ body {
 .content .main p:first-of-type {
   font-size: 24px;
   color: #737373;
-  margin-top: 6rem;
+  margin-top: 5.5rem;
 }
 
 #nav {
@@ -206,7 +208,7 @@ body {
 
 .main .data .right {
   float: right;
-  font-family: "iconfont";
+  font-family: "微软雅黑";
   font-size: 18px;
   color: #737373;
   margin-left: 0.5rem;
@@ -246,6 +248,8 @@ body {
   box-sizing: border-box;
   margin-bottom: 0.3rem;
   float: left;
+  position: relative;
+  overflow: hidden;
 }
 
 .main1 .one .logo {
@@ -266,6 +270,7 @@ body {
   height: 100%;
   float: left;
   margin-left: 0.3rem;
+  overflow: hidden;
 }
 
 .main1 .one .neirong > .title1 {
@@ -285,4 +290,28 @@ body {
   line-height: 0.35rem;
   float: left;
   color: #999999;
+}
+
+.main1 .one .neirong > a {
+  font-family: "iconfont";
+  float: left;
+  width: auto;
+  height: 100%;
+  line-height: 1.15rem;
+  position: absolute;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  right: 1.5rem;
+  font-size: 24px;
+  color: #737373;
+}
+
+.main1 .one .neirong > a:nth-of-type(2) {
+  right: 0.4rem;
+}
+
+.main1 .one .neirong > .color {
+  color: yellow;
 }
