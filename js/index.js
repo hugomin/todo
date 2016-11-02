@@ -30,8 +30,6 @@ $(document).ready(function(){
 		main.eq(2).on("touchstart",".baocun",function(){
 			var baocuns=$(".baocun")
 			var index=baocuns.index($(this));
-			
-			console.log(todos)
 			if(todos[index].state==1){
 			$(this).removeClass("color")
 			todos[index].state=0;
@@ -44,7 +42,7 @@ $(document).ready(function(){
 		})
 		main.eq(2).on("touchstart",".guanbi",function(){
 			var text=$("#text")
-			if(text.html()=="默认"||"未完成"){
+			if(text.html()=="默认"||"未完成"||"已完成"){
 			 var delete1=$(".guanbi")
 			 var index=delete1.index($(this))
 			 var li=$(".one")
@@ -68,23 +66,23 @@ $(document).ready(function(){
 			 li.eq(index).remove();
 			
 			}
-			if(text.html()=="已完成")
-			{
-			 var delete1=$(".guanbi")
-			 var index1=delete1.index($(this))
-			 index=yiwan[index1]
-			 yiwan.splice(index1,1)
-			 var li=$(".one")
-			 
-			 todos.splice(index,1);
-			 localStorage.todos=JSON.stringify(todos);
-			 console.log(li.get(index1))
-			 jishu--
-			 if(todos.length==0||jishu==0){
-				main.css("display","none").eq(0).css("display","block")
-			}
-			 li.eq(index).remove();	
-			}
+//			if(text.html()=="已完成")
+//			{
+//			 var delete1=$(".guanbi")
+//			 console.log(delete1.length)
+//			 var index1=delete1.index($(this))
+//			  console.log(delete1.length,index1)
+//			 index=yiwan[index1]
+//			 yiwan.splice(index1,1)
+//			 var li=$(".one")		 
+//			 todos.splice(index,1);
+//			 localStorage.todos=JSON.stringify(todos);
+//			 jishu--
+//			 if(todos.length==0||jishu==0){
+//				main.css("display","none").eq(0).css("display","block")
+//			}
+//			 li.eq(index).remove();	
+//			}
 			
 			
 		
@@ -143,7 +141,6 @@ $(document).ready(function(){
 	var content=$(".content");
 	var v1=$.trim(title.val());
 	var v2=$.trim(content.val());
-	console.log(Boolean(v1||v2))
 	if(v1||v2){
 		if(!v1){v1=v2}
 		if(!v2){v2=v1}
@@ -216,31 +213,18 @@ $(document).ready(function(){
 			}
 		}
 		//已完成
-		if($(this).attr("data-rote")=="yw"){
-			jishu=0;
+		if($(this).attr("data-rote")=="yw"){	
 			
 			for(var i=0;i<todos.length;i++){
 				if(todos[i].state==1){
-					jishu++
 					yiwan.push(i)
 				}
 			}
 //		   console.log(yiwan);
-			if(localStorage.todos&&jishu!=0){
+			if(localStorage.todos&&todos.length!=0){
 				main.eq(2).css("display","block")
-				main.eq(2).empty();
-				if(localStorage.todos){
-				todos=JSON.parse(localStorage.todos);
-				for(var i=0;i<todos.length;i++){
-				if(todos[i].state==1){
-					var title1=todos[i].title;
-					var content1=todos[i].content;
-		    		var v=title1.charAt(0);
-					$("<img src='image/02.jpg'  class='img2'/><div class='one'><div class='logo'>"+v+"</div><div class='neirong'><div class='title1'>"+title1+"</div><div class='content1'>"+content1+"</div><a class='color baocun' >&#xe612;</a><a class='guanbi'>&#xe605;</a></div></div>").
-			appendTo(main.eq(2));
-				}		
-		}
-	}
+				render1()
+				
 			}
 			else{
 				console.log(2)
@@ -252,7 +236,6 @@ $(document).ready(function(){
 		 if($(this).attr("data-rote")=="ww"){
 		  var text=$("#text")
 	 		var arr1=[]
-	 		console.log(todos.length)
 	 		for(var i=0;i<todos.length;i++){
 		 		if(todos[i].state==0){
 		 			arr1.push(todos[i])
@@ -340,6 +323,25 @@ $(document).ready(function(){
 		$("<img src='image/02.jpg'  class='img2'/><div class='one'><div class='logo'>"+v+"</div><div class='neirong'><div class='title1'>"+title1+"</div><div class='content1'>"+content1+"</div><a class='"+c+" baocun' >&#xe612;</a><a class='guanbi'>&#xe605;</a></div></div>").
 		appendTo(main.eq(2));
 		}
+	}
+	}
+	
+	function render1(){
+		main.eq(2).empty();
+		if(localStorage.todos){
+		todos=JSON.parse(localStorage.todos);
+		for(var i=0;i<todos.length;i++){
+		var title1=todos[i].title;
+		var content1=todos[i].content;
+	    var v=title1.charAt(0);
+	   var c=todos[i].state?"color":""
+		$("<img src='image/02.jpg'  class='img2'/><div class='one'><div class='logo'>"+v+"</div><div class='neirong'><div class='title1'>"+title1+"</div><div class='content1'>"+content1+"</div><a class='"+c+" baocun' >&#xe612;</a><a class='guanbi'>&#xe605;</a></div></div>").
+		appendTo(main.eq(2));
+		}
+		var lis=$(".one",main.eq(2))
+		lis.hide();
+		var lis1=$(".color").parents(".one")
+		lis1.show();
 	}
 	}
 	
